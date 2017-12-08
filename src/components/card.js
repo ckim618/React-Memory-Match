@@ -17,7 +17,13 @@ class Card extends Component {
 
 
     card_clicked(event) {
+        if(this.props.info.matched) {
+            console.log('Clicked a matched  card');
+            return;
+        }
         this.props.info.cardClass = event.currentTarget;
+        this.props.info.visibility =true;
+        console.log(this.props);
         if(this.state.first_clicked_index === null) {
             console.log(this.props)
             this.setState({
@@ -34,9 +40,8 @@ class Card extends Component {
     }
 
     render() {
-
         return (
-            <div className={`card ${this.state.visible ? 'reveal flipped' : ''}`} onClick={this.card_clicked}>
+            <div className={`card ${this.state.visible && this.props.info.visibility ? 'reveal flipped' : ''}`} onClick={this.card_clicked}>
                 <div className="front">
                     <img src={this.props.info.card} />
                 </div>

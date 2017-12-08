@@ -33,126 +33,144 @@ export default class Cards extends Component {
                     card: archmage,
                     cardClass: null,
                     index: 0,
-                    visibility: true
+                    visibility: false,
+                    matched: false
                 },
                 {
                     id: 'archmage',
                     card: archmage,
                     cardClass: null,
                     index: 1,  
-                    visibility: true                    
+                    visibility: false,
+                    matched: false                    
                 },
                 {
                     id: 'aldor_peacekeeper',
                     card: aldor_peacekeeper,
                     cardClass: null,
                     index: 2,
-                    visibility: true                    
+                    visibility: false, 
+                    matched: false                    
                 },
                 {
                     id: 'aldor_peacekeeper',
                     card: aldor_peacekeeper,
                     cardClass: null,
                     index: 3,
-                    visibility: true                    
+                    visibility: false,
+                    matched: false                    
                 },
                 {
                     id: 'azure',
                     card: azure,
                     cardClass: null,
                     index: 4, 
-                    visibility: true                    
+                    visibility: false, 
+                    matched: false                    
                 },
                 {
                     id: 'azure',
                     card: azure,
                     cardClass: null,
                     index: 5,
-                    visibility: true                    
+                    visibility: false,  
+                    matched: false                    
                 },
                 {
                     id: 'boar',
                     card: boar,
                     cardClass: null,
                     index: 6,
-                    visibility: true                    
+                    visibility: false,
+                    matched: false                    
                 },
                 {
                     id: 'boar',
                     card: boar,
                     cardClass: null,
                     index: 7, 
-                    visibility: true                    
+                    visibility: false,
+                    matched: false                    
                 },
                 {
                     id: 'holy_champion',
                     card: holy_champion,
                     cardClass: null,
                     index: 8,
-                    visibility: true                    
+                    visibility: false, 
+                    matched: false                    
                 },
                 {
                     id: 'holy_champion',
                     card: holy_champion,
                     cardClass: null,
                     index: 9, 
-                    visibility: true                    
+                    visibility: false, 
+                    matched: false                    
                 },
                 {
                     id: 'mountain_giant',
                     card: mountain_giant,
                     cardClass: null,
                     index: 10,
-                    visibility: true                    
+                    visibility: false,
+                    matched: false                    
                 },
                 {
                     id: 'mountain_giant',
                     card: mountain_giant,
                     cardClass: null,
                     index: 11,
-                    visibility: true                    
+                    visibility: false,
+                    matched: false                    
                 },
                 {
                     id: 'northshire_cleric',
                     card: northshire_cleric,
                     cardClass: null,
                     index: 12,
-                    visibility: true                    
+                    visibility: false, 
+                    matched: false                    
                 },
                 {
                     id: 'northshire_cleric',
                     card: northshire_cleric,
                     cardClass: null,
                     index: 13,
-                    visibility: true                    
+                    visibility: false, 
+                    matched: false                    
                 },
                 {
                     id: 'patches',
                     card: patches,
                     cardClass: null,
                     index: 14,
-                    visibility: true                    
+                    visibility: false,
+                    matched: false                    
                 },
                 {
                     id: 'patches',
                     card: patches,
                     cardClass: null,
                     index: 15,
-                    visibility: true                    
+                    visibility: false, 
+                    matched: false                    
                 },
                 {
                     id: 'silver_hand_recruit',
                     card: silver_hand_recruit,
                     cardClass: null,
                     index: 16,
-                    visibility: true                    
+                    visibility: false, 
+                    matched: false                    
                 },
                 {
                     id: 'silver_hand_recruit',
                     card: silver_hand_recruit,
                     cardClass: null,
                     index: 17, 
-                    visibility: true                    
+                    visibility: false, 
+                    matched: false                    
                 }
             ]
 
@@ -164,10 +182,11 @@ export default class Cards extends Component {
     card_clicked(cardIndex) {
         console.log('Card Clicked', this.state.cardFrontImages[cardIndex]);
         let cardClicked = this.state.cardFrontImages[cardIndex];
+        console.log(cardClicked);
         if(this.state.first_card_clicked === null) {
             this.setState({
                 first_card_clicked: cardClicked.id,
-                first_card_clicked_index: cardClicked.index
+                first_card_clicked_index: cardClicked.index,
             });
             return;
         } else {
@@ -187,9 +206,15 @@ export default class Cards extends Component {
     }
 
     checkMatch() {
+        const first_card = this.state.cardFrontImages[this.state.first_card_clicked_index];
+        const second_card = this.state.cardFrontImages[this.state.second_card_clicked_index];
+        console.log('check these cards ', this.state.cardFrontImages[this.state.first_card_clicked_index])
         if (this.state.first_card_clicked === this.state.second_card_clicked) {
             console.log('it matches');
+            first_card.matched = true;
+            second_card.matched = true;
             this.setState({
+                accuracy: {this.state.accuracy}
                 attempts: this.state.attempts += 1,
                 matches: this.state.matches += 1,                
                 first_card_clicked: null,
@@ -197,8 +222,12 @@ export default class Cards extends Component {
                 second_card_clicked: null
             });
         } else {
-            console.log('not a match')
-            console.log(this);           
+            console.log('not a match');
+            //Need help trying to get state update so card will flip back if not a match and not after another card gets clicked
+           setTimeout(() => {
+               first_card.visibility = false;
+               second_card.visibility = false;              
+           }, 1000);
             this.setState({
                 attempts: this.state.attempts += 1,
                 first_card_clicked: null,
@@ -207,9 +236,12 @@ export default class Cards extends Component {
                 second_card_clicked: null,
                 second_card_clicked_class: null,
                 second_card_clicked_index: null
-
-
             });
+        }
+        if(this.state.matches === 9) {
+            setTimeout(() => {
+                alert('You Won!');                
+            }, 750);
         }
     }
 
