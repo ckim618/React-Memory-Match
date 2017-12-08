@@ -1,8 +1,14 @@
+@font-face {
+    font-family: 'hearthstone';
+    src: url(../fonts/hearthstone.otf);
+}
+
 body {
     background-image: url("http://www.hearthstonetopdecks.com/wp-content/uploads/2017/02/ungoro-wallpaper007.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    font-family: 'hearthstone';
 }
 
 header {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Header from './header';
 import Stats from './stats';
 import Card from './card';
 import '../assets/css/app.css';
@@ -11,6 +12,153 @@ import mountain_giant from '../assets/css/images/mountain_giant.png';
 import northshire_cleric from '../assets/css/images/northshire_cleric.png';
 import patches from '../assets/css/images/patches.png';
 import silver_hand_recruit from '../assets/css/images/silver_hand_recruit.png';
+
+const initialCardState = [
+    {
+        id: 'archmage',
+        card: archmage,
+        cardClass: null,
+        index: 0,
+        visibility: false,
+        matched: false
+    },
+    {
+        id: 'archmage',
+        card: archmage,
+        cardClass: null,
+        index: 1,  
+        visibility: false,
+        matched: false                    
+    },
+    {
+        id: 'aldor_peacekeeper',
+        card: aldor_peacekeeper,
+        cardClass: null,
+        index: 2,
+        visibility: false, 
+        matched: false                    
+    },
+    {
+        id: 'aldor_peacekeeper',
+        card: aldor_peacekeeper,
+        cardClass: null,
+        index: 3,
+        visibility: false,
+        matched: false                    
+    },
+    {
+        id: 'azure',
+        card: azure,
+        cardClass: null,
+        index: 4, 
+        visibility: false, 
+        matched: false                    
+    },
+    {
+        id: 'azure',
+        card: azure,
+        cardClass: null,
+        index: 5,
+        visibility: false,  
+        matched: false                    
+    },
+    {
+        id: 'boar',
+        card: boar,
+        cardClass: null,
+        index: 6,
+        visibility: false,
+        matched: false                    
+    },
+    {
+        id: 'boar',
+        card: boar,
+        cardClass: null,
+        index: 7, 
+        visibility: false,
+        matched: false                    
+    },
+    {
+        id: 'holy_champion',
+        card: holy_champion,
+        cardClass: null,
+        index: 8,
+        visibility: false, 
+        matched: false                    
+    },
+    {
+        id: 'holy_champion',
+        card: holy_champion,
+        cardClass: null,
+        index: 9, 
+        visibility: false, 
+        matched: false                    
+    },
+    {
+        id: 'mountain_giant',
+        card: mountain_giant,
+        cardClass: null,
+        index: 10,
+        visibility: false,
+        matched: false                    
+    },
+    {
+        id: 'mountain_giant',
+        card: mountain_giant,
+        cardClass: null,
+        index: 11,
+        visibility: false,
+        matched: false                    
+    },
+    {
+        id: 'northshire_cleric',
+        card: northshire_cleric,
+        cardClass: null,
+        index: 12,
+        visibility: false, 
+        matched: false                    
+    },
+    {
+        id: 'northshire_cleric',
+        card: northshire_cleric,
+        cardClass: null,
+        index: 13,
+        visibility: false, 
+        matched: false                    
+    },
+    {
+        id: 'patches',
+        card: patches,
+        cardClass: null,
+        index: 14,
+        visibility: false,
+        matched: false                    
+    },
+    {
+        id: 'patches',
+        card: patches,
+        cardClass: null,
+        index: 15,
+        visibility: false, 
+        matched: false                    
+    },
+    {
+        id: 'silver_hand_recruit',
+        card: silver_hand_recruit,
+        cardClass: null,
+        index: 16,
+        visibility: false, 
+        matched: false                    
+    },
+    {
+        id: 'silver_hand_recruit',
+        card: silver_hand_recruit,
+        cardClass: null,
+        index: 17, 
+        visibility: false, 
+        matched: false                    
+    }
+]
 
 export default class Cards extends Component {
 
@@ -27,156 +175,13 @@ export default class Cards extends Component {
             attempts: 0,
             accuracy: 0,
             games_played: 0,
-            cardFrontImages: [
-                {
-                    id: 'archmage',
-                    card: archmage,
-                    cardClass: null,
-                    index: 0,
-                    visibility: false,
-                    matched: false
-                },
-                {
-                    id: 'archmage',
-                    card: archmage,
-                    cardClass: null,
-                    index: 1,  
-                    visibility: false,
-                    matched: false                    
-                },
-                {
-                    id: 'aldor_peacekeeper',
-                    card: aldor_peacekeeper,
-                    cardClass: null,
-                    index: 2,
-                    visibility: false, 
-                    matched: false                    
-                },
-                {
-                    id: 'aldor_peacekeeper',
-                    card: aldor_peacekeeper,
-                    cardClass: null,
-                    index: 3,
-                    visibility: false,
-                    matched: false                    
-                },
-                {
-                    id: 'azure',
-                    card: azure,
-                    cardClass: null,
-                    index: 4, 
-                    visibility: false, 
-                    matched: false                    
-                },
-                {
-                    id: 'azure',
-                    card: azure,
-                    cardClass: null,
-                    index: 5,
-                    visibility: false,  
-                    matched: false                    
-                },
-                {
-                    id: 'boar',
-                    card: boar,
-                    cardClass: null,
-                    index: 6,
-                    visibility: false,
-                    matched: false                    
-                },
-                {
-                    id: 'boar',
-                    card: boar,
-                    cardClass: null,
-                    index: 7, 
-                    visibility: false,
-                    matched: false                    
-                },
-                {
-                    id: 'holy_champion',
-                    card: holy_champion,
-                    cardClass: null,
-                    index: 8,
-                    visibility: false, 
-                    matched: false                    
-                },
-                {
-                    id: 'holy_champion',
-                    card: holy_champion,
-                    cardClass: null,
-                    index: 9, 
-                    visibility: false, 
-                    matched: false                    
-                },
-                {
-                    id: 'mountain_giant',
-                    card: mountain_giant,
-                    cardClass: null,
-                    index: 10,
-                    visibility: false,
-                    matched: false                    
-                },
-                {
-                    id: 'mountain_giant',
-                    card: mountain_giant,
-                    cardClass: null,
-                    index: 11,
-                    visibility: false,
-                    matched: false                    
-                },
-                {
-                    id: 'northshire_cleric',
-                    card: northshire_cleric,
-                    cardClass: null,
-                    index: 12,
-                    visibility: false, 
-                    matched: false                    
-                },
-                {
-                    id: 'northshire_cleric',
-                    card: northshire_cleric,
-                    cardClass: null,
-                    index: 13,
-                    visibility: false, 
-                    matched: false                    
-                },
-                {
-                    id: 'patches',
-                    card: patches,
-                    cardClass: null,
-                    index: 14,
-                    visibility: false,
-                    matched: false                    
-                },
-                {
-                    id: 'patches',
-                    card: patches,
-                    cardClass: null,
-                    index: 15,
-                    visibility: false, 
-                    matched: false                    
-                },
-                {
-                    id: 'silver_hand_recruit',
-                    card: silver_hand_recruit,
-                    cardClass: null,
-                    index: 16,
-                    visibility: false, 
-                    matched: false                    
-                },
-                {
-                    id: 'silver_hand_recruit',
-                    card: silver_hand_recruit,
-                    cardClass: null,
-                    index: 17, 
-                    visibility: false, 
-                    matched: false                    
-                }
-            ]
+            cardFrontImages: initialCardState
 
         }
         this.card_clicked = this.card_clicked.bind(this);
         this.checkMatch = this.checkMatch.bind(this);
+        this.checkAccuracy = this.checkAccuracy.bind(this);
+        this.randomizeCards = this.randomizeCards.bind(this);
     }
 
     card_clicked(cardIndex) {
@@ -208,28 +213,28 @@ export default class Cards extends Component {
     checkMatch() {
         const first_card = this.state.cardFrontImages[this.state.first_card_clicked_index];
         const second_card = this.state.cardFrontImages[this.state.second_card_clicked_index];
+   
         console.log('check these cards ', this.state.cardFrontImages[this.state.first_card_clicked_index])
         if (this.state.first_card_clicked === this.state.second_card_clicked) {
             console.log('it matches');
+            this.state.attempts = this.state.attempts += 1
+            this.state.matches = this.state.matches += 1;
             first_card.matched = true;
             second_card.matched = true;
             this.setState({
-                accuracy: {this.state.accuracy}
-                attempts: this.state.attempts += 1,
-                matches: this.state.matches += 1,                
                 first_card_clicked: null,
                 first_card_clicked_index: null,
                 second_card_clicked: null
             });
         } else {
             console.log('not a match');
+            this.state.attempts = this.state.attempts += 1
             //Need help trying to get state update so card will flip back if not a match and not after another card gets clicked
            setTimeout(() => {
                first_card.visibility = false;
                second_card.visibility = false;              
            }, 1000);
             this.setState({
-                attempts: this.state.attempts += 1,
                 first_card_clicked: null,
                 first_card_clicked_class: null,
                 first_card_clicked_index: null,
@@ -243,16 +248,26 @@ export default class Cards extends Component {
                 alert('You Won!');                
             }, 750);
         }
+        this.checkAccuracy();
     }
 
+    checkAccuracy() {
+        this.state.accuracy = Math.floor((this.state.matches / this.state.attempts * 100)) + '%';                    
+    }
+    //Will try later to get cards to randomize order
+    randomizeCards() {
+        let randomCards = [];
+        const cardFrontImages = this.state.cardFrontImages;
+        while (cardFrontImages.length > 0) {
+            let randomIndex = Math.floor(Math.random() * cardFrontImages.length);
+            let pickedCard = cardFrontImages.splice(randomIndex, 1);
+            randomCards.push(pickedCard);
+        }
+        return randomCards;
+    }
+
+
     render() {
-        // let randomCards = [];
-        // const cardFrontImages = this.state.cardFrontImages;
-        // while (cardFrontImages.length > 0) {
-        //     let randomIndex = Math.floor(Math.random() * cardFrontImages.length);
-        //     let pickedCard = cardFrontImages.splice(randomIndex, 1);
-        //     randomCards.push(pickedCard);
-        // }
 
         const cards = this.state.cardFrontImages.map((value, index) => {
             return <Card key={index} index={index} info={value} onClick={this.card_clicked} />
@@ -260,6 +275,7 @@ export default class Cards extends Component {
 
         return (
             <div>
+                <Header />
                 <Stats games_played={this.state.games_played} attempts={this.state.attempts} accuracy={this.state.accuracy} />
                 <section id="game_area">{cards}</section>
             </div>

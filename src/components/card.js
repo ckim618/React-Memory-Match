@@ -7,7 +7,6 @@ class Card extends Component {
         super(props);
 
         this.state = {
-            visible: false,
             first_clicked_index: null,
             second_clicked_index: null
         }
@@ -27,7 +26,6 @@ class Card extends Component {
         if(this.state.first_clicked_index === null) {
             console.log(this.props)
             this.setState({
-                visible: true,
                 first_clicked_index: this.props.info.index
             });
         } else {
@@ -41,7 +39,7 @@ class Card extends Component {
 
     render() {
         return (
-            <div className={`card ${this.state.visible && this.props.info.visibility ? 'reveal flipped' : ''}`} onClick={this.card_clicked}>
+            <div className={`card ${this.props.info.visibility ? 'reveal flipped' : ''}`} onClick={this.card_clicked}>
                 <div className="front">
                     <img src={this.props.info.card} />
                 </div>

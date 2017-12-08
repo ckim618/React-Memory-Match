@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
+export default class Header extends Component {
+    constructor(props) {
+        super(props)
+    }
 
-export default () => {
-    return (
-        <header>
-            <div id="game_title">Tavern Brawl</div>
-            <a className="links">Settings</a>
-            <a className="links">About</a>
-        </header>
-       )
-}
+
+    render() {
+        return (
+            <header>
+                <div id="game_title">Tavern Brawl</div>
+                <a className="links">Reset Game</a>
+            </header>
+           )
+        }
+    }
+   
