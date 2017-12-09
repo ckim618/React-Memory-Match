@@ -4,16 +4,20 @@
 }
 
 body {
-    background-image: url("http://www.hearthstonetopdecks.com/wp-content/uploads/2017/02/ungoro-wallpaper007.jpg");
+    background: transparent;
+    background-image: url("./images/background.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     font-family: 'hearthstone';
+    margin: 0 auto;
 }
 
 header {
+    background-color: rgba(0,0,0,0.5);    
     width: 100%;
-    height: 30vh;
+    height: 20vh;
+    margin-bottom: 1%;
     text-align: center;
 }
 
@@ -29,70 +33,57 @@ header {
 #game_title {
     font-size: 3em;
     text-shadow: 4px 4px black;
-    color: ghostwhite;
+    color: rgb(218, 116, 0);
     width: 70%;
     margin: 10px auto;
 }
 
 .links {
-    color: ghostwhite;
-    text-shadow: 3px 2px black;
+    color: rgb(218, 116, 0);
     display: inline-block;
     text-align: center;
     font-size: 1.5em;
     margin: 2%;
 }
 
+.links:hover {
+    cursor: pointer;
+    -webkit-text-shadow:0 0 50px rgb(255, 255, 255); 
+    -moz-text-shadow: 0 0 50px rgb(255,255,255); 
+    text-shadow:0 0 50px rgb(255,255,255);
+}
+
 
 /* Styling for the stats container */
 
 #stats_container {
+    background-color: rgba(0,0,0,0.5);
     font-size: x-large;
     text-shadow: 2px 2px black;
-    color: gold;
+    color: rgb(218, 116, 0);
     height: 70vh;
-    width: 20vw;
+    width: 14vw;
     display: inline-flex;
     flex-direction: column;
+    padding: 2%;
 }
 
 .value {
     text-shadow: none;
-    color: #b88603;
+    color: rgb(218, 116, 0);
 }
 
 .games_played,
 .attempts,
-.accuracy {
-    flex: .5;
+.accuracy,
+.healthPoints {
+    flex: .33;
 }
-
-.reset {
-    flex: .25;
-    color: black;
-    background: #d9b834;
-    background-image: -webkit-linear-gradient(top, #d9b834, #3e6fc2);
-    background-image: -moz-linear-gradient(top, #d9b834, #3e6fc2);
-    background-image: -ms-linear-gradient(top, #d9b834, #3e6fc2);
-    background-image: -o-linear-gradient(top, #d9b834, #3e6fc2);
-    background-image: linear-gradient(to bottom, #d9b834, #3e6fc2);
-    border-radius: 28px;
-    color: #ffffff;
-    font-size: 20px;
-    padding: 10px 20px 10px 20px;
-    text-decoration: none;
-    text-shadow: 2px 2px black;
-}
-
-button:focus {
-    outline: none;
-}
-
 
 /* Styling for the game board and cards */
 
 #game_area {
-    width: 70vw;
+    width: 82vw;
     height: 70vh;
     display: inline-flex;
     flex-wrap: wrap;
@@ -105,12 +96,16 @@ img {
 }
 
 .card {
-    display: inline-flex;
-    width: 16%;
-    height: 33%;
+    width: 11%;
+    height: 24%;
     position: relative;
     transform-style: preserve-3d;
     transition: 1s;
+    margin: 13px 16px;
+}
+
+.card:hover {
+    cursor: pointer;
 }
 
 .flipped {
@@ -121,11 +116,18 @@ img {
 .back {
     position: absolute;
     backface-visibility: hidden;
+    height: 99%;
 }
 
 
 .front {
     transform: rotateY(180deg);
+}
+
+.back:hover {
+    -webkit-box-shadow:0 0 50px rgb(218, 116, 0); 
+    -moz-box-shadow: 0 0 50px rgb(218, 116, 0); 
+    box-shadow:0 0 50px rgb(218, 116, 0);
 }
 
 .reveal .back {

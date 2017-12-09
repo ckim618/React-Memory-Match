@@ -184,6 +184,7 @@ export default class Cards extends Component {
         this.randomizeCards = this.randomizeCards.bind(this);
     }
 
+
     card_clicked(cardIndex) {
         console.log('Card Clicked', this.state.cardFrontImages[cardIndex]);
         let cardClicked = this.state.cardFrontImages[cardIndex];
@@ -230,10 +231,10 @@ export default class Cards extends Component {
             console.log('not a match');
             this.state.attempts = this.state.attempts += 1
             //Need help trying to get state update so card will flip back if not a match and not after another card gets clicked
-           setTimeout(() => {
+        
                first_card.visibility = false;
                second_card.visibility = false;              
-           }, 1000);
+           
             this.setState({
                 first_card_clicked: null,
                 first_card_clicked_class: null,
@@ -263,18 +264,17 @@ export default class Cards extends Component {
             let pickedCard = cardFrontImages.splice(randomIndex, 1);
             randomCards.push(pickedCard);
         }
-        return randomCards;
     }
 
 
     render() {
-
+     
         const cards = this.state.cardFrontImages.map((value, index) => {
             return <Card key={index} index={index} info={value} onClick={this.card_clicked} />
         });
 
         return (
-            <div>
+            <div className="layer">
                 <Header />
                 <Stats games_played={this.state.games_played} attempts={this.state.attempts} accuracy={this.state.accuracy} />
                 <section id="game_area">{cards}</section>
