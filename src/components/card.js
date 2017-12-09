@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import back_card from '../assets/css/images/back_card.png';
+import '../assets/css/app.css';
+import back_card from '../assets/css/images/cardback.png';
 
 
 class Card extends Component {

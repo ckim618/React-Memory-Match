@@ -58,7 +58,7 @@ header {
 
 #stats_container {
     background-color: rgba(0,0,0,0.5);
-    font-size: x-large;
+    font-size: 1.5em;
     text-shadow: 2px 2px black;
     color: rgb(218, 116, 0);
     height: 70vh;
@@ -93,10 +93,16 @@ header {
 img {
     width: 100%;
     height: 120px;
+    image-rendering: optimizeSpeed;             /*                     */
+    image-rendering: -moz-crisp-edges;          /* Firefox             */
+    image-rendering: -o-crisp-edges;            /* Opera               */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and Safari) */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed       */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                */
 }
 
 .card {
-    width: 11%;
+    width: 13%;
     height: 24%;
     position: relative;
     transform-style: preserve-3d;
@@ -132,4 +138,56 @@ img {
 
 .reveal .back {
     display: none;
+}
+
+/*************************************
+            Media Query
+*************************************/
+
+@media only screen and (max-width: 1025px) {
+    .card {
+        width: 11%;
+    }
+}
+
+@media only screen and (max-width: 960px) {
+    .card {
+        width: 10%;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    .card {
+        width: 9%;
+    }
+    #stats_container {
+        font-size: 1em;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .card {
+        width: 7%;
+    }
+    #stats_container {
+        font-size: .75em;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .card {
+        width: 8%;
+    }
+    img {
+        width: 150%;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .card {
+        width: 7%;
+    }
+    img {
+        width: 200%;
+    }
 }
