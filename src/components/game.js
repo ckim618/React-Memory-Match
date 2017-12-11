@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Header from './header';
 import Stats from './stats';
 import Card from './card';
 import '../assets/css/app.css';
@@ -162,8 +161,13 @@ const initialCardState = [
 
 export default class Cards extends Component {
 
+    componentDidMount() {
+        
+    }
+
     constructor(props) {
         super(props);
+
         this.state = {
             first_card_clicked: null,
             first_card_clicked_index: null,
@@ -179,11 +183,12 @@ export default class Cards extends Component {
 
         }
         this.card_clicked = this.card_clicked.bind(this);
+        this.changeCardComponentState = this.changeCardComponentState.bind(this);
         this.checkMatch = this.checkMatch.bind(this);
         this.checkAccuracy = this.checkAccuracy.bind(this);
         this.randomizeCards = this.randomizeCards.bind(this);
+        this.resetGame = this.resetGame.bind(this);
     }
-
 
     card_clicked(cardIndex) {
         console.log('Card Clicked', this.state.cardFrontImages[cardIndex]);
@@ -212,8 +217,10 @@ export default class Cards extends Component {
     }
 
     checkMatch() {
-        const first_card = this.state.cardFrontImages[this.state.first_card_clicked_index];
-        const second_card = this.state.cardFrontImages[this.state.second_card_clicked_index];
+        
+        const card_array_copy = initialCardState.slice();
+        const first_card = card_array_copy[this.state.first_card_clicked_index];
+        const second_card = card_array_copy[this.state.second_card_clicked_index];
    
         console.log('check these cards ', this.state.cardFrontImages[this.state.first_card_clicked_index])
         if (this.state.first_card_clicked === this.state.second_card_clicked) {
@@ -231,18 +238,20 @@ export default class Cards extends Component {
             console.log('not a match');
             this.state.attempts = this.state.attempts += 1
             //Need help trying to get state update so card will flip back if not a match and not after another card gets clicked
-        
-               first_card.visibility = false;
-               second_card.visibility = false;              
+            setTimeout(() => {
+                this.setState({
+                    first_card_clicked: null,
+                    first_card_clicked_class: null,
+                    first_card_clicked_index: null,
+                    second_card_clicked: null,
+                    second_card_clicked_class: null,
+                    second_card_clicked_index: null
+                });
+            }, 1000);
+            first_card.visibility = false;
+            second_card.visibility = false; 
            
-            this.setState({
-                first_card_clicked: null,
-                first_card_clicked_class: null,
-                first_card_clicked_index: null,
-                second_card_clicked: null,
-                second_card_clicked_class: null,
-                second_card_clicked_index: null
-            });
+          
         }
         if(this.state.matches === 9) {
             setTimeout(() => {
@@ -255,27 +264,66 @@ export default class Cards extends Component {
     checkAccuracy() {
         this.state.accuracy = Math.floor((this.state.matches / this.state.attempts * 100)) + '%';                    
     }
+
+    changeCardComponentState() {
+        this.setState({
+            first_card_clicked_index: null,
+            second_card_clicked_index: null
+        });
+        console.log('changed', this);        
+    }
+
     //Will try later to get cards to randomize order
     randomizeCards() {
         let randomCards = [];
-        const cardFrontImages = this.state.cardFrontImages;
+        const card_array_copy = initialCardState.slice();        
+        const cardFrontImages = card_array_copy;
         while (cardFrontImages.length > 0) {
             let randomIndex = Math.floor(Math.random() * cardFrontImages.length);
             let pickedCard = cardFrontImages.splice(randomIndex, 1);
             randomCards.push(pickedCard);
         }
+        this.state.cardFrontImages = randomCards;
+    }
+
+    resetGame() {
+        console.log('RESET GAME')
+        console.log(this.state.cardFrontImages)
+        // this.state.cardFrontImages[this.state.second_card_clicked_index]        
+        this.setState({
+            first_card_clicked: null,
+            first_card_clicked_index: null,
+            first_card_clicked_class: null,
+            second_card_clicked: null,
+            second_card_clicked_index: null,
+            second_card_clicked_class: null,
+            matches: 0,
+            attempts: 0,
+            accuracy: 0,
+            games_played: 0,
+            cardFrontImages: initialCardState
+        });
+        this.changeCardComponentState();
     }
 
 
     render() {
      
         const cards = this.state.cardFrontImages.map((value, index) => {
-            return <Card key={index} index={index} info={value} onClick={this.card_clicked} />
+            return <Card key={index} 
+                         index={index}
+                         info={value}
+                         onClick={this.card_clicked} 
+                         changeState = {this.changeCardComponentState}
+                        />
         });
 
         return (
             <div className="layer">
-                <Header />
+                <header>
+                    <div id="game_title">Tavern Brawl</div>
+                    <a className="links" onClick={this.resetGame}>Reset Game</a>
+                </header>
                 <Stats games_played={this.state.games_played} attempts={this.state.attempts} accuracy={this.state.accuracy} />
                 <section id="game_area">{cards}</section>
             </div>

@@ -38,6 +38,7 @@ class Card extends Component {
         this.props.onClick(this.props.index);
     }
 
+ 
     render() {
         return (
             <div className={`card ${this.props.info.visibility ? 'reveal flipped' : ''}`} onClick={this.card_clicked}>

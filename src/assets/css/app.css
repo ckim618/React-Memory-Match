@@ -83,15 +83,16 @@ header {
 /* Styling for the game board and cards */
 
 #game_area {
-    width: 82vw;
-    height: 70vh;
+    width: 80vw;
+    height: 78vh;
     display: inline-flex;
+    justify-content: space-around;
     flex-wrap: wrap;
     vertical-align: top;
 }
 
 img {
-    width: 100%;
+    width: 90%;
     height: 120px;
     image-rendering: optimizeSpeed;             /*                     */
     image-rendering: -moz-crisp-edges;          /* Firefox             */
@@ -102,8 +103,7 @@ img {
 }
 
 .card {
-    width: 13%;
-    height: 24%;
+    width: 12%;
     position: relative;
     transform-style: preserve-3d;
     transition: 1s;
@@ -125,15 +125,8 @@ img {
     height: 99%;
 }
 
-
 .front {
     transform: rotateY(180deg);
-}
-
-.back:hover {
-    -webkit-box-shadow:0 0 50px rgb(218, 116, 0); 
-    -moz-box-shadow: 0 0 50px rgb(218, 116, 0); 
-    box-shadow:0 0 50px rgb(218, 116, 0);
 }
 
 .reveal .back {
@@ -144,15 +137,52 @@ img {
             Media Query
 *************************************/
 
+@media only screen and (max-width: 1400px) {
+    #game_area {
+        width: 80vw;
+        height: 78vh;
+    }
+   
+}
+
+@media only screen and (max-width: 1300px) {
+    .card {
+        width: 13%;
+    }
+    img {
+        width: 115%;
+    }
+
+    #game_area {
+        width: 79vw;
+        height: 78vh;
+    }
+}
+
 @media only screen and (max-width: 1025px) {
     .card {
         width: 11%;
     }
+    img {
+        width: 115%;
+    }
 }
 
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 950px) {
+    .card {
+        width: 11%;
+    }
+    img {
+        width: 120%;
+    }
+}
+
+@media only screen and (max-width: 870px) {
     .card {
         width: 10%;
+    }
+    img {
+        width: 125%;
     }
 }
 
@@ -163,6 +193,9 @@ img {
     #stats_container {
         font-size: 1em;
     }
+    img {
+        width: 150%;
+    }
 }
 
 @media only screen and (max-width: 550px) {
@@ -172,14 +205,8 @@ img {
     #stats_container {
         font-size: .75em;
     }
-}
-
-@media only screen and (max-width: 550px) {
-    .card {
-        width: 8%;
-    }
     img {
-        width: 150%;
+        width: 200%;
     }
 }
 
@@ -188,6 +215,29 @@ img {
         width: 7%;
     }
     img {
-        width: 200%;
+        width: 210%;
+    }
+    #game_area {
+        width: 78vw;
+        height: 78vh;
+    }
+}
+
+@media only screen and (max-width: 405px) {
+    .card {
+        width: 6%;
+    }
+    img {
+        width: 220%;
+    }
+   
+}
+
+@media only screen and (max-width: 320px) {
+    .card {
+        width: 4%;
+    }
+    img {
+        width: 250%;
     }
 }
