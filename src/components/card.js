@@ -21,20 +21,20 @@ class Card extends Component {
             console.log('Clicked a matched  card');
             return;
         }
-        this.props.info.cardClass = event.currentTarget;
+        this.props.info.index = this.props.index;
         this.props.info.visibility =true;
         console.log(this.props);
         if(this.state.first_clicked_index === null) {
-            console.log(this.props)
+            console.log(this)
             this.setState({
-                first_clicked_index: this.props.info.index
+                first_clicked_index: this.props.index
             });
         } else {
             this.setState({
                 second_clicked_index: this.props.index
             });
         }
-        console.log(this.state.first_clicked_index)
+        console.log(this)
         this.props.onClick(this.props.index);
     }
 
@@ -43,7 +43,7 @@ class Card extends Component {
         return (
             <div className={`card ${this.props.info.visibility ? 'reveal flipped' : ''}`} onClick={this.card_clicked}>
                 <div className="front">
-                    <img src={this.props.info.card} />
+                    <img src={this.props.info[0].card} />
                 </div>
                 <div className="back">
                     <img src={back_card} alt="back card" />
