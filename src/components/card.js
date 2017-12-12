@@ -4,37 +4,19 @@ import back_card from '../assets/css/images/cardback.png';
 
 
 class Card extends Component {
+    
     constructor(props) {
         super(props);
-
-        this.state = {
-            first_clicked_index: null,
-            second_clicked_index: null
-        }
-
         this.card_clicked = this.card_clicked.bind(this);
     }
 
 
-    card_clicked(event) {
+    card_clicked() {
         if(this.props.info.matched) {
-            console.log('Clicked a matched  card');
             return;
         }
         this.props.info.index = this.props.index;
         this.props.info.visibility =true;
-        console.log(this.props);
-        if(this.state.first_clicked_index === null) {
-            console.log(this)
-            this.setState({
-                first_clicked_index: this.props.index
-            });
-        } else {
-            this.setState({
-                second_clicked_index: this.props.index
-            });
-        }
-        console.log(this)
         this.props.onClick(this.props.index);
     }
 
