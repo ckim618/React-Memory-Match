@@ -1,4 +1,5 @@
 import React from 'react';
+import '../assets/css/app.css';
 
 export default (props) => {
     return (
@@ -14,6 +15,9 @@ export default (props) => {
             <div className="accuracy">
                 <div className="label">Accuracy:</div>
                 <div className="value">{props.accuracy}</div>
+            </div>
+            <div>
+                <a className="links">Reset Game</a>
             </div>
         </section>
     );

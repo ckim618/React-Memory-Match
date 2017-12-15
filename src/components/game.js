@@ -168,7 +168,6 @@ export default class Cards extends Component {
         this.changeCardComponentState = this.changeCardComponentState.bind(this);
         this.checkMatch = this.checkMatch.bind(this);
         this.checkAccuracy = this.checkAccuracy.bind(this);
-        this.resetGame = this.resetGame.bind(this);
         this.randomizeCards = this.randomizeCards.bind(this);
     }
 
@@ -259,23 +258,7 @@ export default class Cards extends Component {
         }
         this.state.cardFrontImages = randomCards;
     }
-    
-    resetGame() {
-        this.state.games_played = this.state.games_played += 1
-        this.state.cardFrontImages = null;
-        this.setState({
-            first_card_clicked: null,
-            first_card_clicked_index: null,
-            first_card_clicked_class: null,
-            second_card_clicked: null,
-            second_card_clicked_index: null,
-            second_card_clicked_class: null,
-            matches: 0,
-            attempts: 0,
-            accuracy: 0,
-        });
-        this.randomizeCards();
-    }
+
 
 
     render() {
@@ -292,7 +275,6 @@ export default class Cards extends Component {
             <div className="layer">
                 <header>
                     <div id="game_title">Tavern Brawl</div>
-                    <a className="links" onClick={this.resetGame}>Reset Game</a>
                 </header>
                 <Stats games_played={this.state.games_played} attempts={this.state.attempts} accuracy={this.state.accuracy} />
                 <section id="game_area">{cards}</section>
