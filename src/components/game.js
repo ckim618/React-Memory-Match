@@ -172,8 +172,10 @@ export default class Cards extends Component {
     }
 
     card_clicked(cardIndex) {
+        const { first_card_clicked, first_card_clicked_index } = this.state;
         let cardClicked = this.state.cardFrontImages[cardIndex];
-        if(this.state.first_card_clicked === null) {
+
+        if(first_card_clicked === null) {
             this.setState({
                 first_card_clicked: cardClicked[0].id,
                 first_card_clicked_index: cardClicked.index,
@@ -181,7 +183,7 @@ export default class Cards extends Component {
             return;
         } else {
             //Checks if second card clicked is the same card that was first clicked so check matches does not happen if you click the same card
-            if(this.state.first_card_clicked_index === cardClicked.index) {
+            if(first_card_clicked_index === cardClicked.index) {
                 return;
             }
             //used anonymous function as a call back so second_card_clicked was updated before checking match function is called
@@ -195,14 +197,15 @@ export default class Cards extends Component {
     }
 
     checkMatch() {
-    
-        const first_card = this.state.cardFrontImages[this.state.first_card_clicked_index];
-        const second_card = this.state.cardFrontImages[this.state.second_card_clicked_index];
+        
+        let{ attempts, cardFrontImages,first_card_clicked, first_card_clicked_index, second_card_clicked, second_card_clicked_index,matches, } = this.state;
+        const first_card = cardFrontImages[first_card_clicked_index];
+        const second_card = cardFrontImages[second_card_clicked_index];
    
-        if (this.state.first_card_clicked === this.state.second_card_clicked) {
+        if (first_card_clicked === second_card_clicked) {
             console.log('it matches');
-            this.state.attempts = this.state.attempts += 1
-            this.state.matches = this.state.matches += 1;
+            attempts = attempts += 1
+            matches = matches += 1;
             first_card.matched = true;
             second_card.matched = true;
             this.setState({
@@ -211,7 +214,7 @@ export default class Cards extends Component {
                 second_card_clicked: null
             });
         } else {
-            this.state.attempts = this.state.attempts += 1
+            attempts = attempts += 1
             //Need help trying to get state update so card will flip back if not a match and not after another card gets clicked
             setTimeout(() => {
                 this.setState({
@@ -237,7 +240,8 @@ export default class Cards extends Component {
     }
 
     checkAccuracy() {
-        this.state.accuracy = Math.floor((this.state.matches / this.state.attempts * 100)) + '%';                    
+        let { accuracy, attempts, matches } = this.state;
+        accuracy = Math.floor((matches / attempts * 100)) + '%';                    
     }
 
     changeCardComponentState() {
@@ -248,6 +252,7 @@ export default class Cards extends Component {
     }
 
     randomizeCards() {
+
         let randomCards = [];
         const card_array_copy = initialCardState.slice();        
         const cardFrontImages = card_array_copy;
@@ -262,7 +267,9 @@ export default class Cards extends Component {
 
 
     render() {
-        const cards = this.state.cardFrontImages.map((value, index) => {
+
+        const { accuracy, attempts, games_played, cardFrontImages } = this.state;
+        const cards = cardFrontImages.map((value, index) => {
             return <Card key={index} 
                          index={index}
                          info={value}
@@ -276,7 +283,7 @@ export default class Cards extends Component {
                 <header>
                     <div id="game_title">Tavern Brawl</div>
                 </header>
-                <Stats games_played={this.state.games_played} attempts={this.state.attempts} accuracy={this.state.accuracy} />
+                <Stats games_played={games_played} attempts={attempts} accuracy={accuracy} />
                 <section id="game_area">{cards}</section>
             </div>
         )
