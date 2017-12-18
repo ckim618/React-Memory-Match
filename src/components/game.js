@@ -5,17 +5,18 @@ import '../assets/css/app.css';
 import archmage from '../assets/css/images/archmage.png';
 import aldor_peacekeeper from '../assets/css/images/aldor_peacekeeper.png';
 import azure from '../assets/css/images/azure.png';
-import boar from '../assets/css/images/boar.png';
+import leeroy_jenkins from '../assets/css/images/leeroy_jenkins.png';
 import holy_champion from '../assets/css/images/holy_champion.png';
 import mountain_giant from '../assets/css/images/mountain_giant.png';
-import northshire_cleric from '../assets/css/images/northshire_cleric.png';
+import obsidian_statue from '../assets/css/images/obsidian_statue.png';
 import patches from '../assets/css/images/patches.png';
-import silver_hand_recruit from '../assets/css/images/silver_hand_recruit.png';
+import deathwing from '../assets/css/images/deathwing.png';
 
 const initialCardState = [
     {
         id: 'archmage',
         card: archmage,
+        hp: 5,        
         index: null,
         visibility: false,
         matched: false
@@ -23,6 +24,7 @@ const initialCardState = [
     {
         id: 'archmage',
         card: archmage,
+        hp: 5,        
         index: null,  
         visibility: false,
         matched: false                    
@@ -30,6 +32,7 @@ const initialCardState = [
     {
         id: 'aldor_peacekeeper',
         card: aldor_peacekeeper,
+        hp: 3,        
         index: null,
         visibility: false, 
         matched: false                    
@@ -37,6 +40,7 @@ const initialCardState = [
     {
         id: 'aldor_peacekeeper',
         card: aldor_peacekeeper,
+        hp: 3,        
         index: null,
         visibility: false,
         matched: false                    
@@ -44,6 +48,7 @@ const initialCardState = [
     {
         id: 'azure',
         card: azure,
+        hp: 4,        
         index: null, 
         visibility: false, 
         matched: false                    
@@ -51,20 +56,23 @@ const initialCardState = [
     {
         id: 'azure',
         card: azure,
+        hp: 4,        
         index: null,
         visibility: false,  
         matched: false                    
     },
     {
-        id: 'boar',
-        card: boar,
+        id: 'leeroy_jenkins',
+        card: leeroy_jenkins,
+        hp: 6,        
         index: null,
         visibility: false,
         matched: false                    
     },
     {
-        id: 'boar',
-        card: boar,
+        id: 'leeroy_jenkins',
+        card: leeroy_jenkins,
+        hp: 6,        
         index: null, 
         visibility: false,
         matched: false                    
@@ -72,6 +80,7 @@ const initialCardState = [
     {
         id: 'holy_champion',
         card: holy_champion,
+        hp: 3,        
         index: null,
         visibility: false, 
         matched: false                    
@@ -79,6 +88,7 @@ const initialCardState = [
     {
         id: 'holy_champion',
         card: holy_champion,
+        hp: 3,        
         index: null, 
         visibility: false, 
         matched: false                    
@@ -86,6 +96,7 @@ const initialCardState = [
     {
         id: 'mountain_giant',
         card: mountain_giant,
+        hp: 8,
         index: null,
         visibility: false,
         matched: false                    
@@ -93,20 +104,23 @@ const initialCardState = [
     {
         id: 'mountain_giant',
         card: mountain_giant,
+        hp: 8,        
         index: null,
         visibility: false,
         matched: false                    
     },
     {
-        id: 'northshire_cleric',
-        card: northshire_cleric,
+        id: 'obsidian_statue',
+        card: obsidian_statue,
+        hp: 4,        
         index: null,
         visibility: false, 
         matched: false                    
     },
     {
-        id: 'northshire_cleric',
-        card: northshire_cleric,
+        id: 'obsidian_statue',
+        card: obsidian_statue,
+        hp: 4,        
         index: null,
         visibility: false, 
         matched: false                    
@@ -114,6 +128,7 @@ const initialCardState = [
     {
         id: 'patches',
         card: patches,
+        hp: 1,        
         index: null,
         visibility: false,
         matched: false                    
@@ -121,20 +136,23 @@ const initialCardState = [
     {
         id: 'patches',
         card: patches,
+        hp: 1,        
         index: null,
         visibility: false, 
         matched: false                    
     },
     {
-        id: 'silver_hand_recruit',
-        card: silver_hand_recruit,
+        id: 'deathwing',
+        card: deathwing,
+        hp: 12,        
         index: null,
         visibility: false, 
         matched: false                    
     },
     {
-        id: 'silver_hand_recruit',
-        card: silver_hand_recruit,
+        id: 'deathwing',
+        card: deathwing,
+        hp: 12,        
         index: null, 
         visibility: false, 
         matched: false                    
@@ -161,7 +179,10 @@ export default class Cards extends Component {
             attempts: 0,
             accuracy: 0,
             games_played: 0,
-            cardFrontImages: null
+            cardFrontImages: null,
+            p1_health: 30,
+            p2_health: 30,
+            p1_turn: true
 
         }
         this.card_clicked = this.card_clicked.bind(this);
@@ -169,11 +190,12 @@ export default class Cards extends Component {
         this.checkMatch = this.checkMatch.bind(this);
         this.checkAccuracy = this.checkAccuracy.bind(this);
         this.randomizeCards = this.randomizeCards.bind(this);
+        this.componentWillMount = this.componentWillMount.bind(this);
     }
 
     card_clicked(cardIndex) {
-        const { first_card_clicked, first_card_clicked_index } = this.state;
-        let cardClicked = this.state.cardFrontImages[cardIndex];
+        const { cardFrontImages, first_card_clicked, first_card_clicked_index } = this.state;
+        let cardClicked = cardFrontImages[cardIndex];
 
         if(first_card_clicked === null) {
             this.setState({
@@ -198,23 +220,33 @@ export default class Cards extends Component {
 
     checkMatch() {
         
-        let{ attempts, cardFrontImages,first_card_clicked, first_card_clicked_index, second_card_clicked, second_card_clicked_index,matches, } = this.state;
+        const { cardFrontImages,first_card_clicked, first_card_clicked_index, second_card_clicked, second_card_clicked_index } = this.state;
         const first_card = cardFrontImages[first_card_clicked_index];
         const second_card = cardFrontImages[second_card_clicked_index];
    
         if (first_card_clicked === second_card_clicked) {
             console.log('it matches');
-            attempts = attempts += 1
-            matches = matches += 1;
             first_card.matched = true;
             second_card.matched = true;
+            if(this.state.p1_turn) {
+                console.log(first_card);
+                this.setState({
+                    p2_health: this.state.p2_health - first_card[0].hp
+                    
+                });
+            } else {
+                this.setState({
+                    p1_health: this.state.p1_health - first_card[0].hp
+                    
+                });
+            }
             this.setState({
                 first_card_clicked: null,
                 first_card_clicked_index: null,
                 second_card_clicked: null
             });
         } else {
-            attempts = attempts += 1
+            this.state.attempts = this.state.attempts += 1
             //Need help trying to get state update so card will flip back if not a match and not after another card gets clicked
             setTimeout(() => {
                 this.setState({
@@ -223,7 +255,8 @@ export default class Cards extends Component {
                     first_card_clicked_index: null,
                     second_card_clicked: null,
                     second_card_clicked_class: null,
-                    second_card_clicked_index: null
+                    second_card_clicked_index: null,
+                    p1_turn: !this.state.p1_turn
                 });
             }, 1000);
             first_card.visibility = false;
@@ -240,8 +273,7 @@ export default class Cards extends Component {
     }
 
     checkAccuracy() {
-        let { accuracy, attempts, matches } = this.state;
-        accuracy = Math.floor((matches / attempts * 100)) + '%';                    
+        this.state.accuracy = Math.floor((this.state.matches / this.state.attempts * 100)) + '%';                    
     }
 
     changeCardComponentState() {
@@ -264,27 +296,52 @@ export default class Cards extends Component {
         this.state.cardFrontImages = randomCards;
     }
 
+    resetGame() {
+        console.log('Game was reset');
+        this.setState({
+            first_card_clicked: null,
+            first_card_clicked_index: null,
+            first_card_clicked_class: null,
+            second_card_clicked: null,
+            second_card_clicked_index: null,
+            second_card_clicked_class: null,
+            matches: 0,
+            attempts: 0,
+            accuracy: 0,
+            games_played: this.state.games_played += 1,
+            cardFrontImages: null
+        }, () => {
+            console.log('Component is starting to mount')
+            this.componentWillMount();
+        });
+    }
+
 
 
     render() {
 
-        const { accuracy, attempts, games_played, cardFrontImages } = this.state;
+        //Could not deconstruct accuracy because state changed too often
+        const { cardFrontImages, p1_turn } = this.state;
         const cards = cardFrontImages.map((value, index) => {
-            return <Card key={index} 
-                         index={index}
-                         info={value}
-                         onClick={this.card_clicked} 
-                         changeState = {this.changeCardComponentState}
-                        />
+            return <Card 
+                        key={index} 
+                        index={index}
+                        info={value}
+                        playerTurn={p1_turn}
+                        onClick={this.card_clicked} 
+                        changeState = {this.changeCardComponentState}
+                    />
         });
 
         return (
             <div className="layer">
                 <header>
-                    <div id="game_title">Tavern Brawl</div>
+                    <div className="player_title">P1: {`${this.state.p1_health} HP`}</div>
                 </header>
-                <Stats games_played={games_played} attempts={attempts} accuracy={accuracy} />
                 <section id="game_area">{cards}</section>
+                <footer>
+                    <div className="player_title">P2: {`${this.state.p2_health} HP`}</div>
+                </footer>
             </div>
         )
     }
