@@ -365,6 +365,7 @@ export default class Cards extends Component {
                 </header>
                 <section id="game_area">{cards}</section>
                 <footer>
+                    <img className="healthBar" src={health}/>
                     <div className={"player_title" + (p2Shake ? ' shake' : '')}>{`${this.state.p2_health}`}</div>
                 </footer>
             </div>
